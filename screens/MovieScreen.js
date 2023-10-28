@@ -1,10 +1,25 @@
-import { View, Text, ScrollView, FlatList } from "react-native";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import Movies from "../components/Movies";
+import axios from "axios";
+import { APIKey } from "../api/constants";
 
 export default function MovieScreen() {
-  const [movies, setMovies] = useState([1, 2, 3, 4, 5, 6,7]);
+  const [movies, setMovies] = useState([]);
   
+  const getMovies = async () => {
+    try{
+      const res = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${APIKey}`)
+      // console.log("Discover", res.data.results); 
+      setMovies(res.data.results);
+    }catch(error){
+      console.log(error);
+     }
+  }
+  useEffect(()=>{
+    getMovies();
+  })
+
   return (
    <Movies data={movies}/>
   );

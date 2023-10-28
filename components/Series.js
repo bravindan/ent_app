@@ -13,7 +13,7 @@ import {
 
 var { width, height } = Dimensions.get("window");
 
-export default function Movies({  data }) {
+export default function Series({  data }) {
   const navigation = useNavigation();
 
 
@@ -25,7 +25,7 @@ export default function Movies({  data }) {
         numColumns={2}
         renderItem={({ item }) => (
           <TouchableWithoutFeedback
-            onPress={() => navigation.navigate("MovieDetails", item)}           
+            onPress={() => navigation.navigate("SeriesDetails", item)}           
           >
             <View className="flex-1 items-center mb-3 ">
               <Image
