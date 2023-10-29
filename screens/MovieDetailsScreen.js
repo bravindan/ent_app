@@ -1,12 +1,12 @@
-import { View, Text, ScrollView, TouchableOpacity, Platform, Dimensions, Image } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Platform, Dimensions, Image,FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronLeftIcon, StarIcon } from 'react-native-heroicons/outline';
 import { LinearGradient } from 'expo-linear-gradient';
 import axios from 'axios';
-import {APIKey, imageURI500, imageURI185} from '../api/constants'
-import {AvatarIcon} from 'react-native-heroicons/solid'
+import {imageURI500, imageURI185} from '../api/constants'
+import { APIKey } from '@env';
 
 
 const ios = Platform.OS === 'ios';
@@ -16,7 +16,8 @@ const topMargin = ios? "":"mt-3";
 export default function MovieDetailsScreen() {
     const [movie, setMovie] =  useState([]);
     const [cast, setCast] =  useState([]);
-
+    const [trailer, setTrailer] =  useState([]);
+    
 
     const {params:item} = useRoute();
     const navigation = useNavigation();
@@ -34,6 +35,7 @@ export default function MovieDetailsScreen() {
         }
 
     }
+    //getting cast information
     const getMovieCast =async (id) =>{
         try{
             const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${APIKey}`);
@@ -44,10 +46,21 @@ export default function MovieDetailsScreen() {
         }
 
     }
+   //getting videos
+    // const getTrailers = async(id) => {
+    //     try{
+    //         const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${APIKey}`);
+    //         console.log(res.data.results);
+    //         setTrailer(res.data.results);
+    //     }catch(error){
+    //         console.log(error)
+    //     }
+    // }
 
     useEffect(() =>{
         getMovieDetails(item.id);  
         getMovieCast(item.id);
+        // getTrailers(item.id);
     },[])
 
 
@@ -74,8 +87,6 @@ export default function MovieDetailsScreen() {
                     />
                 <LinearGradient
                     colors={['transparent','rgba(200,200,200,0.8)', 'rgba(200,200,200,0.9)']}
-                    // colors={['transparent','#171717CC', '#171717FF']}
-                    // colors={['transparent','rgba(23,23,23,0.8)','rgba(23,23,23,0.8)']}
                     style={{width, height:height*0.40}}
                     start={{x:0.5, y:0}}
                     end={{x:0.5, y:1}}
@@ -87,16 +98,22 @@ export default function MovieDetailsScreen() {
         <View style={{marginTop:-(height*0.09)}} className="space-y-2">
         <LinearGradient
                     colors={['transparent','rgba(200,200,200,0.8)', 'rgba(200,200,200,0.9)']}
-                    // colors={['transparent','#171717CC', '#171717FF']}
-                    // colors={['transparent','rgba(23,23,23,0.8)','rgba(23,23,23,0.8)']}
                     style={{width, height:height*0.35}}
                     start={{x:0.5, y:0}}
                     end={{x:0.5, y:1}}
                     className="absolute bottom-0"
                     />
             <Text className="text-neutral-900 text-center- text-2xl font-bold mx-4 tracking-wider">
-                {movie.title}
+                {movie.title}               
             </Text>
+            {/* <Text>
+            {
+                trailer?.map((video)=>(
+                    <View key={video.key} className="flex-col items-center">
+                        <Text className="mx-2 text-xs">{video.site}</Text>
+                    </View>
+                ))}
+            </Text> */}
             <Text className="text-neutral-600 font-semibold  mx-4">
                 {movie?.status} ◦{movie.release_date} ◦ {movie.runtime} min
             </Text>
@@ -132,10 +149,10 @@ export default function MovieDetailsScreen() {
                 <Text className="mx-4 text-neutral-900 font-semibold">
                     Cast:
                 </Text>
-                <ScrollView horizontal className="tracking-tighter mx-4 text-neutral-600">
+                <ScrollView horizontal className="tracking-tighter mx-4 text-neutral-600">                                                   
                 {
-                    cast?.map((character)=>(
-                        <View key={character.id} className="flex-col items-center">
+                    cast?.map((character, index)=>(
+                        <View key={index} className="flex-col items-center">
                             <Image source={{uri:`${imageURI185}${character.profile_path} `}} style={{width:40, height:40}} className="rounded-full"/>
                             <Text className="mx-2 text-xs">{character.original_name}</Text>
                         </View>

@@ -5,7 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronLeftIcon, StarIcon } from 'react-native-heroicons/outline';
 import { LinearGradient } from 'expo-linear-gradient';
 import axios from 'axios';
-import {APIKey, imageURI185, imageURI500} from '../api/constants'
+import {imageURI185, imageURI500} from '../api/constants'
+import { APIKey } from '@env';
 
 
 const ios = Platform.OS === 'ios';

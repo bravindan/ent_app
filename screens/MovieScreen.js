@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Movies from "../components/Movies";
 import axios from "axios";
-import { APIKey } from "../api/constants";
+import { APIKey } from '@env';
 
 export default function MovieScreen() {
   const [movies, setMovies] = useState([]);

@@ -1,4 +1,4 @@
- export const APIKey ="da56b3d964bc5df94771d23b900cce7f"
+import { APIKey } from '@env';
  export const imageURI500 = `https://image.tmdb.org/t/p/w500`
  export const imageURI185 = `https://image.tmdb.org/t/p/w185`
  export const trendingURI = `https://api.themoviedb.org/3/trending/all/day?api_key=${APIKey}`;

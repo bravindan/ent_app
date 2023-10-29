@@ -9,8 +9,9 @@ import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { XMarkIcon } from 'react-native-heroicons/solid'
 import { useNavigation } from '@react-navigation/native'
-import { searchURI, APIKey,topSearchURI, imageURI185 } from '../api/constants'
+import { searchURI,topSearchURI, imageURI185 } from '../api/constants'
 import axios from 'axios'
+import { APIKey } from '@env';
 
 var {width, height} =Dimensions.get('window');
 
@@ -104,14 +105,14 @@ const MovieCard = ({item, handleClick}) =>{
             onPress = {()=>handleClick(item)}
             className=""
             >
-                <View className="flex-row mx-2 p-1">
+                <View className="flex-row mx-2 p-1 bg-neutral-200 mb-1">
                     <Image                    
                     source={{uri:`${imageURI185}${item?.poster_path}`}}
                     style ={{width: width*0.3, height: height*0.15}}
                     className="rounded-md m-1"
                      />
-                     <View className="p-2 bg-neutral-200 w-full rounded-md">
-                        <Text className="text-sm font-bold">{item.title}</Text>
+                     <View className="p-2 bg-neutral-200 w-full rounded-md ">
+                        <Text className="text-sm font-bold overflow-hidden whitespace-normal ">{item.title}</Text>
                         <Text className="text-sm text">{item.release_date}</Text>
                          <View className="text-base text">
                             <Text className="text-xs">Original Language:{item.original_language=="en"? "English":"n/a"}</Text>

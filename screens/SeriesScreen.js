@@ -1,13 +1,12 @@
 
 import React, { useState, useEffect } from 'react'
 import Series from '../components/Series'
-import { APIKey } from '../api/constants';
+import { APIKey } from '@env';
 import axios from 'axios';
 
 export default function SeriesScreen() {
 
   const [series, setSeries]= useState([]);
-
 
   const getSeries = async () => {
 
