@@ -12,9 +12,9 @@ export default function MovieList({title, data}) {
   return (
     <View className="mb-3 space-y-4">
         <View className="mx-4 flex-row justify-between items-center">
-            <Text className="font-bold mx-4 text-lg ">{title}</Text>
-            <TouchableOpacity className="bg-neutral-200 px-1 rounded-md">
-                <Text className="text-lg font-bold ">See All</Text>
+            <Text className="font-bold mx-3 text-lg ">{title}</Text>
+            <TouchableOpacity className="bg-neutral-300 px-1 rounded-md">
+                <Text className="text-lg font-bold "></Text>
             </TouchableOpacity>
         </View>
 

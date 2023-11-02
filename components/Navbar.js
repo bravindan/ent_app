@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 export default function Navbar() {
     const navigation = useNavigation();
   return (   
-        <View className="flex-row p-2 justify-around ">
+        <View className="flex-row  justify-around ">
             <TouchableOpacity  onPress={()=>navigation.navigate('Movies')}
              className="bg-neutral-200 p-1 rounded-md ">
                 <Text className="font-bold mx-6">Movies</Text>
@@ -16,9 +16,9 @@ export default function Navbar() {
              className="bg-neutral-200 p-1 rounded-md ">
                 <Text className="font-bold mx-6">Series</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>navigation.navigate('Music')}
+            <TouchableOpacity onPress={()=>navigation.navigate('NowPlaying')}
              className="bg-neutral-200 p-1 rounded-md ">
-                <Text className="font-bold mx-6">Music</Text>
+                <Text className="font-bold mx-6">Now Playing</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>navigation.navigate('Search')}
              className=" p-1 rounded-md mx-1">

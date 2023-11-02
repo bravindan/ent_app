@@ -6,7 +6,7 @@ import LandingScreen from '../screens/LandingScreen';
 import SearchScreen from '../screens/SearchScreen';
 import MovieScreen from '../screens/MovieScreen';
 import SeriesScreen from '../screens/SeriesScreen';
-import MusicScreen from '../screens/MusicScreen';
+import NowPlaying from '../screens/NowPlaying';
 import MovieDetailsScreen from '../screens/MovieDetailsScreen';
 import SeriesDetailsScreen from '../screens/SeriesDetailsScreen';
 
@@ -34,7 +34,7 @@ export default function AppNavigation(){
             <Stack.Screen name="MovieDetails" component={MovieDetailsScreen} options={{headerShown:false}} />
             <Stack.Screen name="Movies" component={MovieScreen} options={{title:"Movies" }}/>              
             <Stack.Screen name="Series" component={SeriesScreen} options={{title:"Series"}} />
-            <Stack.Screen name="Music"  component={MusicScreen}  options={{title:"Music"}}  />
+            <Stack.Screen name="NowPlaying"  component={NowPlaying}  options={{title:"Now Playing"}}  />
             <Stack.Screen name="SeriesDetails"  component={SeriesDetailsScreen}  options={{headerShown: false}}  />
 
         </Stack.Navigator>

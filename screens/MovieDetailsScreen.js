@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, Platform, Dimensions, Image,FlatList } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Platform, Dimensions, Image} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,6 +7,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import axios from 'axios';
 import {imageURI500, imageURI185} from '../api/constants'
 import { APIKey } from '@env';
+import Trailer from '../components/Trailer';
+
 
 
 const ios = Platform.OS === 'ios';
@@ -16,8 +18,8 @@ const topMargin = ios? "":"mt-3";
 export default function MovieDetailsScreen() {
     const [movie, setMovie] =  useState([]);
     const [cast, setCast] =  useState([]);
-    const [trailer, setTrailer] =  useState([]);
-    
+    const [videoKey, setVideoKey] =  useState([]);
+    const trailerURL =`https://www.youtube.com/watch?v=${videoKey}`;
 
     const {params:item} = useRoute();
     const navigation = useNavigation();
@@ -47,20 +49,20 @@ export default function MovieDetailsScreen() {
 
     }
    //getting videos
-    // const getTrailers = async(id) => {
-    //     try{
-    //         const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${APIKey}`);
-    //         console.log(res.data.results);
-    //         setTrailer(res.data.results);
-    //     }catch(error){
-    //         console.log(error)
-    //     }
-    // }
+    const getTrailers = async(id) => {
+        try{
+            const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${APIKey}`);
+            // console.log(res.data.results);
+            setVideoKey(res.data.results[0].key);
+        }catch(error){
+            console.log(error)
+        }
+    }
 
     useEffect(() =>{
         getMovieDetails(item.id);  
         getMovieCast(item.id);
-        // getTrailers(item.id);
+        getTrailers(item.id);
     },[])
 
 
@@ -106,21 +108,17 @@ export default function MovieDetailsScreen() {
             <Text className="text-neutral-900 text-center- text-2xl font-bold mx-4 tracking-wider">
                 {movie.title}               
             </Text>
-            {/* <Text>
-            {
-                trailer?.map((video)=>(
-                    <View key={video.key} className="flex-col items-center">
-                        <Text className="mx-2 text-xs">{video.site}</Text>
-                    </View>
-                ))}
-            </Text> */}
+            <Text>
+                <Trailer trailerURL={trailerURL}/>
+            </Text>
+
             <Text className="text-neutral-600 font-semibold  mx-4">
                 {movie?.status} ◦{movie.release_date} ◦ {movie.runtime} min
             </Text>
             <View className="flex-row mx-4">
                 <Text className="text-neutral-900 font-semibold">Genre: </Text>
                 
-                <Text className="text-neutral-600 font-semibold  text-center">
+                <Text className="text-neutral-600 font-semibold text-center">
                     {
                     movie.genres?.map((genre)=>(
                     <Text key={genre.id} className="">{genre.name} ◦ </Text> )                       
